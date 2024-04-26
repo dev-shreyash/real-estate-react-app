@@ -3,7 +3,7 @@ import prisma from '../lib/prisma.js'
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from '../utils/asyncHandler.js';
-  
+import  jwt  from 'jsonwebtoken';
 
 
 export const register=asyncHandler(async(req,res)=>{
@@ -53,43 +53,59 @@ export const register=asyncHandler(async(req,res)=>{
 })
 
 export const login=asyncHandler(async(req,res)=>{
-    const {username, password}=req.body
-    console.log(username,password)
-    if (!(username&&password)) {
-        
-        throw new ApiError(400,"plz provide username and password")
-        
+    const { username, password } = req.body;
+    console.log(username, password);
+
+    if (!username || !password) {
+        throw new ApiError(400, "Please provide username and password");
     }
-    try{
+    try {
         const user = await prisma.user.findFirst({
             where: {
                 OR: [
-                    { email: email },
+                    { email: username }, // Assuming username can be email or username
                     { username: username }
                 ]
             }
+        });
+
+        if (!user) {
+            throw new ApiError(400, "User does not exist");
+        }
+
+        // Check password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new ApiError(400, "Password is not valid");
+        }
+
+        // Set cookie token or session
+        const cookieAge=1000*60*60*24*7;
+
+        const token=jwt.sign({id:user.id},process.env.JWT_SECRET,{expiresIn:cookieAge});
+
+        res.cookie("token",token,{
+            httpOnly:true,
+            secure:true,
+            maxAge:cookieAge
         })
-        if(!user){
-            throw new ApiError(400,"user dose not exist")
-        }
-    
-        //check pass
 
-        const isPasswordValid=await bcrypt.compare(password,user.password)
-        if(!isPasswordValid){
-            throw new ApiError(400,"password is not valid")
-        }
-        
-        //cookie tokes
 
-       res.setHeader("set-Cookie","test="+"myValue").json("success")
-    }catch(error){
 
+        res.status(200).json({status:'success',data:{user},message:"user created successfully"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            status: 'fail',
+            message: "Something went wrong while logging in user",
+        });
     }
-
 })
 export const logout=(req,res)=>{
     try{
+
+        res.clearCookie("token")
+        .status(200).json({status:'success',message:"user logged out successfully"})
 
         
     }catch(error){
