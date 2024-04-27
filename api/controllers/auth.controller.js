@@ -76,7 +76,9 @@ export const login=asyncHandler(async(req,res)=>{
         // Check password
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            throw new ApiError(400, "Password is not valid");
+           // throw new ApiError(400, "Password is not valid");
+            // 401 Unauthorized
+            res.ApiResponse(401, "Password is not valid");
         }
 
         // Set cookie token or session
