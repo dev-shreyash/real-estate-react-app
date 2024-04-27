@@ -3,10 +3,16 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import postRoute from './routes/post.route.js'
 import authRoute from './routes/auth.route.js'
+import dotenv from  'dotenv';
+import http from 'http';
+import { Server } from 'socket.io';
 
-
-
+dotenv.config({
+    path:'./.env'
+})
 const app=express()
+const server = http.createServer(app);
+const io = new Server(server);
 
 app.use(cors({origin: process.env.CLIENT_URL, credentials:true}))
 app.use(cookieParser())
