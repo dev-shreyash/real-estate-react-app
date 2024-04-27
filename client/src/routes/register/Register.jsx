@@ -1,11 +1,13 @@
 import "./register.scss";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import apiRequest from "../../lib/apiRequest";
+
+
 
 function Register() {
   const [error, setError] = useState("");
-
+  const navigate =useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -15,15 +17,16 @@ function Register() {
     const password = formData.get("password");
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', {
+      const res = await apiRequest.post('/auth/register', {
         username,
         email,
         password
       });
       
       // Optionally, redirect to another page after successful registration
-      console.log("Registration successful:", res.data);
+      console.log("Registration successfull:", res.data);
       // Redirect logic here
+      navigate("/login")
 
     } catch (error) {
       console.error("Registration failed:", error.response?.data?.message);
@@ -40,6 +43,7 @@ function Register() {
           <input name="email" type="text" placeholder="Email" />
           <input name="password" type="password" placeholder="Password" />
           <button type="submit">Register</button>
+          {error && <span>{error}</span>}
           <Link to="/login">Already have an account? Login</Link>
         </form>
         {error && <p className="error">{error}</p>}

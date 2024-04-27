@@ -6,6 +6,7 @@ import authRoute from './routes/auth.route.js'
 import dotenv from  'dotenv';
 import http from 'http';
 import { Server } from 'socket.io';
+import testRoute from './routes/test.route.js'
 
 dotenv.config({
     path:'./.env'
@@ -21,6 +22,8 @@ app.use(express.json())
 
 app.use('/api/auth',authRoute)
 app.use('/api/posts',postRoute)
+app.use("/api/test", testRoute);
+
 
 console.log('test')
 

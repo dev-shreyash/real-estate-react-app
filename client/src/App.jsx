@@ -2,7 +2,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import {Layout} from "./routes/layout/Layout";
 import Register from "./routes/register/Register";
-function App() {
+import Login from "./routes/login/Login";
+import ProfilePage from "./routes/profilePage/ProfilePage";
+import { profilePageLoader } from "./lib/loader";
+import RequireAuth from "./routes/requireAuth/RequireAuth";
+
+function App
+() {
 
   const router = createBrowserRouter([
     {
@@ -14,27 +20,24 @@ function App() {
           path: "/register",
           element: <Register />,
         },
+        {
+          path: "/login",
+          element: <Login />,
+        },
       ],
     },
-    // {
-    //   path: "/",
-    //   element: <RequireAuth />,
-    //   children: [
-    //     {
-    //       path: "/profile",
-    //       element: <ProfilePage />,
-    //       loader: profilePageLoader
-    //     },
-    //     {
-    //       path: "/profile/update",
-    //       element: <ProfileUpdatePage />,
-    //     },
-    //     {
-    //       path: "/add",
-    //       element: <NewPostPage />,
-    //     },
-    //   ],
-    // },
+    {
+      path: "/",
+      element: <RequireAuth />,
+      children: [
+        {
+          path: "/profile",
+          element: <ProfilePage />,
+          loader: profilePageLoader
+        },
+      
+      ],
+    },
   ]);
 
   return <RouterProvider router={router} />;

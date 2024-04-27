@@ -90,6 +90,7 @@ export const login=asyncHandler(async(req,res)=>{
             maxAge:cookieAge
         })
 
+        const {password:userPassword, ...userInfo}=user
 
 
         res.status(200).json({status:'success',data:{user},message:"user created successfully"});
