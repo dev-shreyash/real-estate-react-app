@@ -1,0 +1,11 @@
+{
+    "rules": {
+      "no-undef": "off",
+      "no-unused-vars": "error"
+    },
+    "globals": {
+      "globalVariable1": "readonly",
+      "globalVariable2": "writable"
+    }
+  }
+  
