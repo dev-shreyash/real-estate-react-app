@@ -1,0 +1,81 @@
+.singlePage{
+    display: flex;
+    height: 100%;
+
+    .details{
+        flex: 3;
+
+        .wrapper{
+            padding-right: 50px;
+        }
+
+        .info{
+            margin-top: 50px;
+            .top{
+                display: flex;
+                justify-content: space-between;
+
+                .post{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    h1{
+                        font-weight: 400;
+
+                    }
+                    .adress{
+                        display: flex;
+                        gap: 5px;
+                        align-items: center;
+                        color: #fcf5fe;
+                        font-size: 14px;
+
+                        img{
+                            width: 16px;
+                            height: 16px;
+                        }
+
+                    }
+                    .price{
+                        padding: 5px;
+                        background-color:#fcf5fe;
+                        border-radius: 5px;
+                        width: max-content;
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+                }
+                .user{
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    justify-content: center;
+                    padding: 0 50px;
+                    border-radius: 10px;
+                    background-color:#efc0fc;
+                    font-weight: 600;
+                    img{
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                }
+                .bottom{
+                    margin-top: 50px;
+                    color: #555;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+
+    .features{
+        flex: 2;
+        background-color:#fcf5fe;
+        .wrapper{
+            padding: 0px 20px;
+        }
+    }
+
+}
