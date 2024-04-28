@@ -1,0 +1,17 @@
+
+
+.listPage{
+    display: flex;
+
+    .listContainer{
+        font: 3px;
+
+        .wrapper{
+            padding-right: 50px;
+        }
+    }
+    .mapContainer{
+        font: 2px;
+        background-color: #b0bde7;
+    }
+}

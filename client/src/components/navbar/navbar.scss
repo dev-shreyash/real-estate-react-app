@@ -84,16 +84,17 @@ nav {
 
       .profile{
         padding: 12px 24px;
-        background-color: #fece51;
+        background-color: #51d6fe;
         cursor: pointer;
         border: none;
         position: relative;
+        border-radius: 5px;
         
         .notification{
           position: absolute;
           top: -8px;
           right: -8px;
-          background-color: red;
+          background-color: rgb(255, 187, 0);
           color: white;
           border-radius: 50%;
           width: 26px;

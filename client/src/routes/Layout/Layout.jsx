@@ -3,7 +3,6 @@ import Navbar from "../../components/navbar/Navbar";
 import { Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-
 function Layout() {
   return (
     <div className="layout">
@@ -11,6 +10,7 @@ function Layout() {
         <Navbar />
       </div>
       <div className="content">
+
         <Outlet />
       </div>
     </div>
