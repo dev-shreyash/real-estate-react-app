@@ -9,10 +9,11 @@ function Navbar() {
 
   const { currentUser } = useContext(AuthContext);
 
- // const fetch = useNotificationStore((state) => state.fetch);
- // const number = useNotificationStore((state) => state.number);
- const number =2
-  if(currentUser) fetch();
+// const fetch = useNotificationStore((state) => state.fetch);
+  //const number = useNotificationStore((state) => state.number);
+
+const number=2
+  //if(currentUser) fetch();
 
   return (
     <nav>
