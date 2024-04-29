@@ -84,7 +84,15 @@ export const login=asyncHandler(async(req,res)=>{
         // Set cookie token or session
         const cookieAge=1000*60*60*24*7;
 
-        const token=jwt.sign({id:user.id},process.env.JWT_SECRET,{expiresIn:cookieAge});
+        const token=jwt.sign(
+            {
+                id:user.id,
+                isAdmin:false
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn:cookieAge
+            });
 
         res.cookie("token",token,{
             httpOnly:true,
@@ -95,7 +103,7 @@ export const login=asyncHandler(async(req,res)=>{
         const {password:userPassword, ...userInfo}=user
 
 
-        res.status(200).json({status:'success',data:{user},message:"user created successfully"});
+        res.status(200).json({status:'success',data:{user},message:"user Logged in successfully"});
     } catch (error) {
         console.log(error);
         res.status(500).json({

@@ -7,6 +7,7 @@ import dotenv from  'dotenv';
 import http from 'http';
 import { Server } from 'socket.io';
 import testRoute from './routes/test.route.js'
+import userRoute from './routes/user.route.js'
 
 dotenv.config({
     path:'./.env'
@@ -21,8 +22,10 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.use('/api/auth',authRoute)
+app.use('/api/users',userRoute)
 app.use('/api/posts',postRoute)
 app.use("/api/test", testRoute);
+
 
 
 console.log('test')

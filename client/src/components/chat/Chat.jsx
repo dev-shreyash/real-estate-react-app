@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './chat.scss'
+import { AuthContext } from '../../context/AuthContext'
 
 function Chat() {
+    const {currentUser}=useContext(AuthContext)
 
     const [chat, setChat]=useState(true)
     return (
@@ -17,7 +19,7 @@ function Chat() {
             {chat &&<div className="chatBox">
                 <div className="top">
                     <div className="user">
-                        <img src="" alt="" />
+                     <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
                         <span>user name</span>
                     </div>
                     <span className="close" onClick={()=>setChat(null)}>x</span>
