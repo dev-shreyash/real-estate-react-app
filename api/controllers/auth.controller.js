@@ -24,8 +24,10 @@ export const register=asyncHandler(async(req,res)=>{
         });
     
         if (existedUser) {
-            throw new ApiError(409, 'User already exists');
-        }
+            res.status(401).json({
+                status: 'fail',
+                message: "user already exist",
+            });          }
         //password hashing
         
         const hashedPass=await bcrypt.hash(password,10)
@@ -40,6 +42,10 @@ export const register=asyncHandler(async(req,res)=>{
         })
         console.log(newUser)
         if(!newUser){
+            res.status(401).json({
+                status: 'fail',
+                message: "faild to create user ",
+            });  
             console.log("faild to create user")
         }
         res.status(201).json({status:'success',data:{newUser},message:"user created successfully"})
@@ -70,15 +76,21 @@ export const login=asyncHandler(async(req,res)=>{
         });
 
         if (!user) {
-            throw new ApiError(400, "User does not exist");
-        }
+            res.status(401).json({
+                status: 'fail',
+                message: "user does not exist",
+            });       
+         }
 
         // Check password
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
            // throw new ApiError(400, "Password is not valid");
             // 401 Unauthorized
-            res.ApiResponse(401, "Password is not valid");
+            res.status(401).json({
+                status: 'fail',
+                message: "user password not matched",
+            });           
         }
 
         // Set cookie token or session
@@ -112,7 +124,7 @@ export const login=asyncHandler(async(req,res)=>{
         });
     }
 })
-export const logout=(req,res)=>{
+export const logout=async(req,res)=>{
     try{
 
         res.clearCookie("token")
