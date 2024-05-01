@@ -19,7 +19,7 @@ function Chat() {
             {chat &&<div className="chatBox">
                 <div className="top">
                     <div className="user">
-                     <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
+                     <img src={currentUser.data.avatar || "/noavatar.jpg"} alt="" />
                         <span>user name</span>
                     </div>
                     <span className="close" onClick={()=>setChat(null)}>x</span>

@@ -1,18 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { createContext, useEffect, useState } from "react";
 
-export const AuthContext = React.createContext();
+export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = React.useState(
-    JSON.parse(localStorage.getItem("user")) || null
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || { data: { user: {} } }
   );
 
   const updateUser = (data) => {
     setCurrentUser(data);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
@@ -21,9 +20,4 @@ export const AuthContextProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-// Prop types validation
-AuthContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 };

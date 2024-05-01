@@ -30,8 +30,8 @@ const number=2
       <div className="right">
         {currentUser ? (
           <div className="user">
-            <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
-            <span>{currentUser.username}</span>
+            <img src={currentUser.data.avatar || "/noavatar.jpg"} alt="" />
+            <span>{currentUser.data.username}</span>
             <Link to="/profile" className="profile">
               {number > 0 && <div className="notification">{number}</div>}
               <span>Profile</span>
@@ -39,10 +39,10 @@ const number=2
           </div>
         ) : (
           <>
-            <a href="/login">Sign in</a>
-            <a href="/register" className="register">
-              Sign up
-            </a>
+          <Link to="/login">Sign in</Link>
+          <Link to="/register" className="register">
+            Sign up
+          </Link>
           </>
         )}
         <div className="menuIcon">
