@@ -1,0 +1,108 @@
+@import "../../responsive.scss";
+
+
+.newPostPage {
+    height: 100%;
+    display: flex;
+    @include sm{
+        flex-direction: column;
+        height: max-content;
+        overflow-y: scroll;
+      }
+    .formContainer {
+        
+      flex: 3;
+      overflow: scroll;
+  
+      .wrapper {
+        
+        margin: 30px 50px 100px 0px;
+  
+        form {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 20px;
+  
+          .item {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            @include sm{
+                width:100%;
+              }
+
+             .quill{
+                border-radius: 10px;
+                @include sm{
+                    height: 100%;
+                    margin-bottom: 60px;
+                  }
+             } 
+  
+            label {
+                font-size: 16px;
+                font-weight: bold;
+            }
+  
+            input {
+              padding: 20px;
+              border-radius: 5px;
+              border: 1px solid gray;
+            
+             
+            }
+  
+            select {
+              padding: 19px;
+            }
+  
+            &.description {
+              width: 100%;
+              height: 320px;
+  
+              .quill > .ql-container > .ql-editor{
+                height: 200px;
+                font-size: 16px;
+
+                @include sm{
+                    flex-direction: column;
+                    height: max-content;
+                  }
+              }
+            }
+          }
+          .sendButton {
+            width: 30%;
+            border-radius: 5px;
+            border: none;
+            background-color: rgb(6, 215, 230);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 26px;
+          }
+          
+        }
+      }
+    }
+  
+    .sideContainer {
+      flex: 2;
+      background-color: #e6fdff;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+  
+      img {
+        width: 50%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+    }
+  }
+  
