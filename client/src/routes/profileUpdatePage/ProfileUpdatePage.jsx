@@ -2,15 +2,16 @@ import { useContext, useState } from 'react';
 import './profileUpdatepPage.scss'
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import UploadWidget from '../../components/uploadWidget/UploadWidget';
+import UploadWidget from '../../components/uploadWidget/UploadWidget.jsx';
 import apiRequest from "../../lib/apiRequest";
 
 function ProfileUpdatePage() {
     const { currentUser, updateUser } = useContext(AuthContext);
     const navigate = useNavigate();
-    console.log(currentUser.data.id)
+    console.log(currentUser.data?.user?.id)
 
     const [avatar, setAvatar] = useState([]);
+    console.log(avatar[0])
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
@@ -20,7 +21,7 @@ function ProfileUpdatePage() {
         const { username, email, password } = Object.fromEntries(formData);
 
         try {
-            const res = await apiRequest.put(`/users/${currentUser.data.id}`, { username, email, password });
+            const res = await apiRequest.put(`/users/${currentUser.data?.user?.id}`, { username, email, password,avatar:avatar[0]});
             updateUser(res.data);
             navigate('/profile');
         } catch (error) {
@@ -40,7 +41,7 @@ function ProfileUpdatePage() {
                             id="username"
                             name="username"
                             type="text"
-                            defaultValue={currentUser.data.username}
+                            defaultValue={currentUser.data?.user?.username}
                         />
                     </div>
                     <div className="item">
@@ -49,7 +50,7 @@ function ProfileUpdatePage() {
                             id="email"
                             name="email"
                             type="email"
-                            defaultValue={currentUser.data.email}
+                            defaultValue={currentUser.data?.user?.email}
                         />
                     </div>
                     <div className="item">
@@ -61,8 +62,17 @@ function ProfileUpdatePage() {
                 </form>
             </div>
             <div className="sideContainer">
-                <img src={avatar.length > 0 ? avatar[0] : currentUser.data.avatar || "/noavatar.jpg"} alt="" className="avatar" />
-                <UploadWidget setAvatar={setAvatar} />
+            <img src={avatar[0] ||currentUser.data?.user?.avatar || "/noavatar.jpg"} alt="" className="avatar" />
+                <UploadWidget
+                uwConfig={{
+                    cloudName:"shreyash-cloudinary",
+                    uploadPreset:"estate",
+                    multiple:false,
+                    maxImageFileSize:2000000,
+                    folder:"avtars"
+                }} setState={setAvatar}
+                 />
+                <p>Click on update to change avatar</p>
             </div>
         </div>
     );

@@ -40,13 +40,13 @@ function ProfilePage() {
           <div className="info">
             <span>
               Avatar:
-              <img src={currentUser.data.avatar || "noavatar.jpg"} alt="" />
+              <img src={currentUser.data?.user?.avatar || "noavatar.jpg"} alt="" />
             </span>
             <span>
-              Username: <b>{currentUser.data.username}</b>
+              Username: <b>{currentUser.data?.user?.username}</b>
             </span>
             <span>
-              E-mail: <b>{currentUser.data.email}</b>
+              E-mail: <b>{currentUser.data?.user?.email}</b>
             </span>
             <button onClick={handleLogout}>Logout</button>
           </div>

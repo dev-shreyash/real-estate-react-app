@@ -30,8 +30,8 @@ const number=2
       <div className="right">
         {currentUser ? (
           <div className="user">
-            <img src={currentUser.data.avatar || "/noavatar.jpg"} alt="" />
-            <span>{currentUser.data.username}</span>
+            <img src={currentUser.data?.user?.avatar || "/noavatar.jpg"} alt="" />
+            <span>{currentUser.data?.user?.username}</span>
             <Link to="/profile" className="profile">
               {number > 0 && <div className="notification">{number}</div>}
               <span>Profile</span>

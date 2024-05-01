@@ -25,9 +25,12 @@ export const getUser=async(req,res)=>{
 
     const id=req.params.id
     try {
-        const users =await prisma.user.findUnique({
+        const user =await prisma.user.findUnique({
             where:{id}
         })
+
+        res.status(200).json({message:'user fetched successfully',data:user})
+
 
     } catch (error) {
         console.log(error)
