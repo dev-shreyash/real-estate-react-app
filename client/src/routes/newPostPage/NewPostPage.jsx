@@ -1,20 +1,64 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./newPostPage.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import UploadWidget from "../../components/uploadWidget/UploadWidget";
 import { useNavigate } from "react-router-dom";
+import apiRequest from "../../lib/apiRequest";
+import { AuthContext } from "../../context/AuthContext";
 
 function NewPostPage() {
-  const [value, setValue] = useState("");
-  const [images, setImages] = useState([]);
-  const [error, setError] = useState("");
-
-  const navigate = useNavigate()
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const [value, setValue] = useState("");
+    const [images, setImages] = useState([]);
+    const [error, setError] = useState("");
+  
     
+    const navigate = useNavigate();
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const inputs = Object.fromEntries(formData);
+      console.log(inputs);
+  
+      // Validate form inputs
+      if (Object.values(inputs).some(input => input === "")) {
+        console.error("Please fill all fields");
+        setError('Please fill all fields');
+        return; // Prevent further execution
+      }
+  
+      try {
+      const res = await apiRequest.post("/posts", {
+        postData: {
+          title: inputs.title,
+          price: parseInt(inputs.price),
+          address: inputs.address,
+          city: inputs.city,
+          bedroom: parseInt(inputs.bedroom),
+          bathroom: parseInt(inputs.bathroom),
+          type: inputs.type,
+          property: inputs.property,
+          latitude: inputs.latitude,
+          longitude: inputs.longitude,
+          images: images,
+        },
+        postDetail: {
+          desc: value,
+          utilities: inputs.utilities,
+          pet: inputs.pet,
+          income: inputs.income,
+          size: parseInt(inputs.size),
+          school: parseInt(inputs.school),
+          bus: parseInt(inputs.bus),
+          restaurant: parseInt(inputs.restaurant),
+        },
+      });
+      navigate("/"+res.data.id)
+    } catch (err) {
+      console.log(err);
+      setError(error);
+    }
   };
 
   return (
@@ -44,26 +88,12 @@ function NewPostPage() {
               <input id="city" name="city" type="text" />
             </div>
             <div className="item">
-              <label htmlFor="type">Bathroom</label>
-              <select name="type">
-                <option value="rent" defaultChecked>
-                  1
-                </option>
-                <option value="buy">2</option>
-                <option value="buy">3+</option>
-              </select>
+              <label htmlFor="bedroom">Bedroom Number</label>
+              <input min={1} id="bedroom" name="bedroom" type="number" />
             </div>
             <div className="item">
-              <label htmlFor="type">Bedroom</label>
-              <select name="type">
-                <option value="rent" defaultChecked>
-                  1
-                </option>
-                <option value="buy">2</option>
-                <option value="buy">3</option>
-                <option value="buy">4</option>
-                <option value="buy">5+</option>
-              </select>
+              <label htmlFor="bathroom">Bathroom Number</label>
+              <input min={1} id="bathroom" name="bathroom" type="number" />
             </div>
             <div className="item">
               <label htmlFor="latitude">Latitude</label>
@@ -144,8 +174,9 @@ function NewPostPage() {
         <UploadWidget
           uwConfig={{
             multiple: true,
-            cloudName: "lamadev",
-            uploadPreset: "estate",
+            cloudName:"shreyash-cloudinary",
+            uploadPreset:"estate",
+            maxImageFileSize:20000000,
             folder: "posts",
           }}
           setState={setImages}

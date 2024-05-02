@@ -1,24 +1,39 @@
 import prisma from "../lib/prisma.js";
 
 
-export const getPosts = async(req,res)=>{
+export const getPosts = async(req, res) => {
+    const { city, type, property, bedroom, minPrice, maxPrice } = req.query;
+    
+    const where = {
+        city: city || undefined,
+        type: type || undefined,
+        property: property || undefined,
+        bedroom: bedroom ? parseInt(bedroom, 10) : undefined,
+        price: {}
+    };
+    console.log(where)
+
+    if (minPrice) where.price.gte = parseInt(minPrice, 10);
+    if (maxPrice) where.price.lte = parseInt(maxPrice, 10);
+
+    if (Object.keys(where.price).length === 0) delete where.price;
 
     try {
-
-        const posts=await  prisma.post.findMany()
         
+        const posts = await prisma.post.findMany({ where });
         res.status(200).json({
-            status:'success',
-            data:{posts},
-        })
+            status: 'success',
+            data: { posts },
+        });
     } catch (error) {
-        console.log(error)
+        console.error(error);
         res.status(500).json({
-            status:'fail',
-            message:"Something went wrong while fetching posts",
-        })
+            status: 'fail',
+            message: "Something went wrong while fetching posts",
+        });
     }
-}
+};
+
 
 
 export const getPost = async(req,res)=>{
@@ -52,32 +67,42 @@ export const getPost = async(req,res)=>{
 
 export const addPost = async(req,res)=>{
 
-    const body= req.body
+    const { postData, postDetail } = req.body;
     const tokenUserId= req.userId
 
+    
+    if (!tokenUserId) {
+        return res.status(401).json({
+            status: 'fail',
+            message: "Unauthorized: No user ID found in the request."
+        });
+    }
     try {
-        const newPost= await prisma.post.create({
-            data:{
-                ...body.postData,
-                userId:tokenUserId,
-                postDetail:{
-                    create:body.postDetail,
-
+        const newPost = await prisma.post.create({
+            data: {
+                ...postData,
+                userId: tokenUserId,
+                postDetail: {
+                    create: postDetail
                 }
             }
-        })
-
+        });
+        if(!newPost){
+            console.log("error creating post")
+        }
+        console.log(newPost)
         res.status(200).json({
-            status:'success',
-            data:{newPost},
+            status: 'success',
+            data: { newPost }
         })
         
     } catch (error) {
         console.log(error)
+        let message = "Something went wrong while creating new post";
         res.status(500).json({
-            status:'fail',
-            message:"Something went wrong while creating new post",
-        })
+            status: 'fail',
+            message,
+        });
     }
 }
 

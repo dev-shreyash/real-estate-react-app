@@ -9,6 +9,7 @@ import SinglePage from "./routes/singlePage/SinglePage";
 import ProfilePage from "./routes/profilePage/ProfilePage";
 import ProfileUpdatePage from "./routes/profileUpdatePage/ProfileUpdatePage";
 import NewPostPage from "./routes/newPostPage/NewPostPage";
+import { listPageLoader, singlePageLoader } from "./lib/loader";
 
 function App
 () {
@@ -24,11 +25,13 @@ function App
         },
         {
           path:"/list",
-          element:<ListPage/>
+          element:<ListPage/>,
+          loader:listPageLoader
         },
         {
           path:'/:id',
-          element:<SinglePage/>
+          element:<SinglePage/>,
+          loader:singlePageLoader
         },
         {
           path:'/login',
