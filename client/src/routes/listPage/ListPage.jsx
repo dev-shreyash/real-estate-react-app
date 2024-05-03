@@ -1,28 +1,44 @@
-import Filter from '../../components/filter/Filter';
-import { listData } from '../../lib/dummyData'
-import './listPage.scss'
-import Card from '../../components/card/Card';
-import Map from '../../components/map/Map';
-import { useLoaderData } from 'react-router-dom';
+import "./listPage.scss";
+import Filter from "../../components/filter/Filter";
+import Card from "../../components/card/Card";
+import Map from "../../components/map/Map";
+import { Await, useLoaderData } from "react-router-dom";
+import { Suspense } from "react";
 
 function ListPage() {
-    const posts = useLoaderData()
-    console.log(posts)
-    return (
-        <div className='listPage'>
-            <div className="listContainer">
-                <div className="wrapper">
-                    <Filter/>
-                    {posts.data.posts.map(item=>(
-                        <Card key={item.id} item={item}/>
-                    ))}
-                </div>
-            </div>
-            <div className="mapContainer">
-                <Map items={posts.data.posts}/>
-            </div>
+  const data = useLoaderData();
+
+  return (
+    <div className="listPage">
+      <div className="listContainer">
+        <div className="wrapper">
+          <Filter />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Error loading posts!</p>}
+            >
+              {(postResponse) =>
+                postResponse.data.posts.map((post) => (
+                  <Card key={post.id} item={post} />
+                ))
+              }
+            </Await>
+          </Suspense>
         </div>
-    )
+      </div>
+      <div className="mapContainer">
+        <Suspense fallback={<p>Loading...</p>}>
+          <Await
+            resolve={data.postResponse}
+            errorElement={<p>Error loading posts!</p>}
+          >
+            {(postResponse) => <Map items={postResponse.data.posts} />}
+          </Await>
+        </Suspense>
+      </div>
+    </div>
+  );
 }
 
-export default ListPage
+export default ListPage;

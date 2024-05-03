@@ -9,7 +9,7 @@ import SinglePage from "./routes/singlePage/SinglePage";
 import ProfilePage from "./routes/profilePage/ProfilePage";
 import ProfileUpdatePage from "./routes/profileUpdatePage/ProfileUpdatePage";
 import NewPostPage from "./routes/newPostPage/NewPostPage";
-import { listPageLoader, singlePageLoader } from "./lib/loader";
+import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loader";
 
 function App
 () {
@@ -50,7 +50,8 @@ function App
       children:[
         {
           path:'/profile',
-          element:<ProfilePage/>
+          element:<ProfilePage/>,
+          loader:profilePageLoader
         },
         {
           path:'/profile/update',

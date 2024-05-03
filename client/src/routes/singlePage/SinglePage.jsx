@@ -1,12 +1,50 @@
 import Slider from '../../components/slider/Slider'
 import './singlePage.scss'
-import { singlePostData, userData } from '../../lib/dummyData'
 import Map from '../../components/map/Map';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import DOMpurify from 'dompurify'
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import apiRequest from '../../lib/apiRequest';
 function SinglePage() {
-    const post =useLoaderData()
-    console.log(post.data.post)
+    const post = useLoaderData()
+    console.log(post)
+    console.log(post.isSaved)
+    let saveValue = post.isSaved
+    console.log(saveValue)
+//console.log(post.data.data.isSaved);
+
+     const [saved, setSaved] = useState(post.isSaved);
+//const [saved, setSaved] = useState(post.isSaved)
+    const { currentUser } = useContext(AuthContext)
+    const navigate = useNavigate()
+    // console.log(post.data.post)
+    console.log(post.data.post.id)
+    //console.log("desc:"+post.data.post.postDetail.desc)
+    const handleSave = async () => {
+        //setSaved((prev) => !prev)
+        console.log('setSaved is: ', setSaved)
+        if (!currentUser) {
+            // return alert("You have to login to save this post")
+            navigate('/login')
+            return
+
+        }
+        console.log('setSaved is: ', setSaved); // Check what setSaved actually contains
+
+        setSaved((prev) => !prev);
+
+        try {
+            
+            await apiRequest.post('/users/save', { postId: post.data.post.id })
+
+        } catch (error) {
+            console.log(error)
+            setSaved((prev) => !prev);
+
+        }
+
+    }
     return (
         <div className='singlePage'>
             <div className="details">
@@ -29,7 +67,7 @@ function SinglePage() {
                                 <span>{post.data.post.user.username}</span>
                             </div>
                         </div>
-                        <div className="bottom" dangerouslySetInnerHTML={{__html:DOMpurify.sanitize(post.data.post.postDetail.desc)}}>
+                        <div className="bottom" dangerouslySetInnerHTML={{ __html: DOMpurify.sanitize(post.data.post.postDetail.desc) }}>
                         </div>
                     </div>
                 </div>
@@ -42,9 +80,9 @@ function SinglePage() {
                             <img src="/utility.png" alt="" />
                             <div className="featureText">
                                 <span>Utilities</span>
-                                {post.data.post.postDetail.utilities==="owner"?(
+                                {post.data.post.postDetail.utilities === "owner" ? (
                                     <p>Owner pays</p>
-                                ):(
+                                ) : (
                                     <p>Tenant is responsible</p>
                                 )}
                             </div>
@@ -53,12 +91,12 @@ function SinglePage() {
                             <img src="/pet.png" alt="" />
                             <div className="featureText">
                                 <span>Pet Policy</span>
-                                {post.data.post.postDetail.pets==="allowed"?(
+                                {post.data.post.postDetail.pets === "allowed" ? (
                                     <p>allowed</p>
-                                ):(
+                                ) : (
                                     <p>not allowed</p>
-                                )}                           
-                             </div>
+                                )}
+                            </div>
                         </div>
                         <div className="feature">
                             <img src="/fee.png" alt="" />
@@ -76,7 +114,7 @@ function SinglePage() {
                         </div>
                         <div className="size">
                             <img src="/bed.png" alt="" />
-                            <span>{post.data.post.bed} Beds</span>
+                            <span>{post.data.post.bedroom} Beds</span>
                         </div>
                         <div className="size">
                             <img src="/bath.png" alt="" />
@@ -85,18 +123,18 @@ function SinglePage() {
                     </div>
                     <p className="title">Nearby Places</p>
                     <div className="listHorizontal">
-                    <div className="feature">
+                        <div className="feature">
                             <img src="/school.png" alt="" />
                             <div className="featureText">
                                 <span>School</span>
-                                <p>{post.data.post.postDetail.school > 999 ?post.data.post.school/1000+"km" :post.data.post.postDetail.school+"m" } away</p>
+                                <p>{post.data.post.postDetail.school > 999 ? post.data.post.school / 1000 + "km" : post.data.post.postDetail.school + "m"} away</p>
                             </div>
                         </div>
                         <div className="feature">
-                            <img src="/pet.png" alt="" />
+                            <img src="/bus.png" alt="" />
                             <div className="featureText">
                                 <span>Bus Stops</span>
-                                <p>{post.data.post.postDetail.bus > 999 ?post.data.post.bus/1000+"km" :post.data.post.postDetail.bus+"m" } away</p>
+                                <p>{post.data.post.postDetail.bus > 999 ? post.data.post.bus / 1000 + "km" : post.data.post.postDetail.bus + "m"} away</p>
                             </div>
                         </div>
                         <div className="feature">
@@ -104,29 +142,35 @@ function SinglePage() {
                             <div className="featureText">
                                 <span>Restaurants</span>
                                 <p>{post.data.post.postDetail.
-                                   restaurant
-                                    > 999 ?post.data.post.
-                                   restaurant
-                                   /1000+"km" :post.data.post.postDetail.
-                                   restaurant
-                                   +"m" } away</p>
+                                    restaurant
+                                    > 999 ? post.data.post.
+                                        restaurant
+                                    / 1000 + "km" : post.data.post.postDetail.
+                                        restaurant
+                                + "m"} away</p>
                             </div>
                         </div>
                     </div>
                     <p className="title">Location</p>
-                        <div className="mapContainer">
-                            <Map items={[post.data.post]}/>
-                        </div>
-                        <div className="buttons">
-                            <button>
-                                <img src="/chat.png" alt="" />
-                                send a Message
-                            </button>
-                            <button>
-                                <img src="/save.png" alt="" />
-                                 save place
-                            </button>
-                        </div>
+                    <div className="mapContainer">
+                        <Map items={[post.data.post]} />
+                    </div>
+                    <div className="buttons">
+                        <button>
+                            <img src="/chat.png" alt="" />
+                            send a Message
+                        </button>
+                        <button
+                            onClick={handleSave}
+                            style={{
+                                backgroundColor: saved ? "#51bffe" : "white",
+                                color: saved ? "white" : "black",
+                            }}
+                        >
+                            <img src="/save.png" alt="" />
+                            {saved ? "Place Saved" : "Save the Place"}
+                        </button>
+                    </div>
 
 
                 </div>
