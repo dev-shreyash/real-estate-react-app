@@ -13,17 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  email String @unique
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  email     String      @unique
   username  String
-  password String
-  avatar String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  post Post[]
+  password  String
+  avatar    String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  post      Post[]
   savedPost SavedPost[]
+  chats     Chat[]      @relation(fields: [chatIDs], references: [id])
+  chatIDs   String[]    @db.ObjectId
 }
 
 model Post {
@@ -51,7 +52,6 @@ enum Type {
   rent
 }
 
-
 enum Property {
   apartment
   house
@@ -73,15 +73,32 @@ model PostDetail {
   postId     String  @unique @db.ObjectId
 }
 
+model SavedPost {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  postId    String   @unique @db.ObjectId
+  userId    String   @db.ObjectId
+  createdAt DateTime @default(now())
 
-model SavedPost{
-    id         String  @id @default(auto()) @map("_id") @db.ObjectId
-    post       Post    @relation(fields: [postId], references: [id])
-    user       User        @relation(fields: [userId], references: [id])
-    postId     String  @unique @db.ObjectId
-    userId     String      @db.ObjectId
-    createdAt  DateTime    @default(now())
+  @@unique([userId, postId])
+}
 
+model Chat {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  users     User[]    @relation(fields: [userIDs], references: [id])
+  userIDs   String[]  @db.ObjectId
+  createdAt DateTime  @default(now())
+  seenBy    String[]  @db.ObjectId
+  messages  Message[]
+  lastMessage String?
+}
 
-  @@unique([userId,postId])
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  userId    String
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  chatId    String   @db.ObjectId
+  createdAt DateTime @default(now())
 }

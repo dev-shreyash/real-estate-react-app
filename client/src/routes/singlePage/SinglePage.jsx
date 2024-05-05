@@ -67,7 +67,7 @@ function SinglePage() {
                                 <span>{post.data.post.user.username}</span>
                             </div>
                         </div>
-                        <div className="bottom" dangerouslySetInnerHTML={{ __html: DOMpurify.sanitize(post.data.post.postDetail.desc) }}>
+                        <div className="bottom" dangerouslySetInnerHTML={{ __html: DOMpurify.sanitize(post.data.post.postDetail.desc) || "description not provided"}}>
                         </div>
                     </div>
                 </div>
