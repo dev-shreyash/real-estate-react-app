@@ -72,7 +72,7 @@ export const getChat=async(req,res)=>{
             include:{
                 messages:{
                     orderBy:{
-                        createdAt:'desc'
+                        createdAt:"asc"
                     },
                     
                 }

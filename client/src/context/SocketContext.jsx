@@ -10,7 +10,7 @@ export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = React.useState(null);
 
   React.useEffect(() => {
-    setSocket(io('http://localhost:5000'));
+    setSocket(io('http://localhost:4000'));
   }, []);
 
   React.useEffect(() => {
