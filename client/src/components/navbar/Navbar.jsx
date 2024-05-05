@@ -29,7 +29,9 @@ function Navbar() {
       <div className="right">
         {currentUser ? (
           <div className="user">
+            <Link to='/profile'>
             <img src={currentUser.data?.user?.avatar || "/noavatar.jpg"} alt="" />
+            </Link>
             <span>{currentUser.data?.user?.username}</span>
             <Link to="/profile" className="profile">
               {number > 0 && <div className="notification">{number}</div>}
