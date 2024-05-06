@@ -59,7 +59,6 @@ function ProfileUpdatePage() {
                         <input id="password" name="password" type="password" />
                     </div>
                     <button>Update</button>
-                    <p>You have to login again for changes.</p>
                     {error && <span>{error}</span>}
                 </form>
             </div>

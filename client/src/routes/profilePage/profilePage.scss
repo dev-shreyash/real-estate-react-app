@@ -25,6 +25,31 @@
       flex-direction: column;
       gap: 50px;
 
+      @include md{
+     padding-right: 0;
+      }
+
+
+      .hello{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h1{
+          font-weight: 600;
+          margin: 0;
+          padding: 0;
+        }
+        button{
+          color: white;
+          padding: 12px 24px;
+          background-color: teal;
+          cursor: pointer;
+          border: none;
+          border-radius: 50px;
+        }
+      }
+
       .title{
         display: flex;
         align-items: center;
@@ -32,11 +57,14 @@
 
         h1{
           font-weight: 300;
+          margin: 0;
+          padding: 0;
         }
 
         button{
+          color: white;
           padding: 12px 24px;
-          background-color: #51e4fe;
+          background-color: teal;
           cursor: pointer;
           border: none;
           border-radius: 50px;
@@ -75,12 +103,12 @@
   }
   .chatContainer {
     flex: 2;
-    background-color: #fcf5f3;
+    background-color: #98ddb7;
     height: 100%;
 
     @include md{
       flex:none;
-      height: max-content;
+      height: 100%;
     }
 
     .wrapper{

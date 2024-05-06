@@ -3,9 +3,15 @@
 .homePage {
   display: flex;
   height: 100%;
+  margin-left: 15px;
+  overflow-y: scroll;
 
   .textContainer {
-    flex: 3;
+    flex: 3; // Takes up 3 parts of the flex space
+
+    @include md {
+      height: 100%;
+    }
 
     .wrapper {
       padding-right: 100px;
@@ -14,16 +20,20 @@
       justify-content: center;
       gap: 50px;
       height: 100%;
+      flex-wrap: wrap;
+      overflow-y: scroll;
 
-      @include lg{
+
+      @include lg {
         padding-right: 50px;
       }
 
-      @include md{
+      @include md {
         padding: 0;
       }
 
-      @include sm{
+      @include sm {
+        
         justify-content: flex-start;
       }
 
@@ -34,13 +44,28 @@
           font-size: 48px;
         }
       }
+      .searchBar {
+
+         // Ensure SearchBar is styled properly
+      }
+
 
       .boxes {
         display: flex;
         justify-content: space-between;
+        overflow-y: auto; // Allows scrolling if content overflows vertically
+        flex-wrap: wrap;
+        // Allows items to wrap onto the next line
 
         @include sm {
           display: none;
+          margin-top: auto;
+          gap: 20px;
+          flex-direction: column;
+          margin: 10px;
+          padding: 5px;
+          white-space: normal;
+          max-width: 100%; order: 0;
         }
 
         h1 {
@@ -67,7 +92,7 @@
     align-items: center;
 
     @include md {
-      display: none;
+      display: none; // Hides the image container on medium and smaller devices
     }
 
     img {

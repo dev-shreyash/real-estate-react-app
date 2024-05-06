@@ -145,7 +145,9 @@ function Chat({ chats }) {
                             <div className="chatMessage"
                                 style={{
                                     alignSelf: message.userId === currentUser.data.user.id ? "flex-end" : "flex-start",
-                                    textAlign: message.userId === currentUser.data.user.id ? "right" : "left"
+                                    textAlign: message.userId === currentUser.data.user.id ? "right" : "left",
+                                    backgroundColor: message.userId === currentUser.data.user.id ? "#5452" : "#5eddd26b",
+                                    borderRadius:message.userId === currentUser.data.user.id ? "20px 20px 2px 20px" : "2px 20px 20px 20px"
                                 }}
                                 key={message.id}>
                                 <p>{message.text}</p>

@@ -2,6 +2,15 @@ import { Link } from 'react-router-dom'
 import './card.scss'
 
 function Card({item}){
+    function formatPrice(price) {
+        const formatter = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+        return formatter.format(price);
+    }
   return (
     <div className='card'>
         <Link to={`/${item.id}`}className='imageContainer'>
@@ -16,7 +25,7 @@ function Card({item}){
                 <span>{item.address}</span>
             </p>
             <p className="price">
-                {item.price}
+                {formatPrice(item.price)}
             </p>
 
             <div className="bottom">

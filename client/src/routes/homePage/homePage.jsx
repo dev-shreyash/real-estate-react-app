@@ -18,8 +18,14 @@ function HomePage() {
             explicabo suscipit cum eius, iure est nulla animi consequatur
             facilis id pariatur fugit quos laudantium temporibus dolor ea
             repellat provident impedit!
+
           </p>
+         
+          <div className="search">
           <SearchBar />
+          
+
+          </div>
           <div className="boxes">
             <div className="box">
               <h1>10+</h1>
@@ -34,10 +40,11 @@ function HomePage() {
               <h2>Property Ready</h2>
             </div>
           </div>
+         
         </div>
       </div>
       <div className="imgContainer">
-        <img src="/bg.png" alt="" />
+        <img src="/bg.webp" alt="backgrond" loading="lazy" />
       </div>
     </div>
   );

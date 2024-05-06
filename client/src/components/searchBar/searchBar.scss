@@ -1,10 +1,14 @@
 @import "../../responsive.scss";
 
 .searchBar {
+  margin: auto;
+  
   .type {
+    
 
 
     button {
+
       padding: 16px 36px;
       border: 1px solid #999;
       border-bottom: none;
@@ -35,12 +39,20 @@
     height: 64px;
     gap: 5px;
 
+    a{
+      @include sm {
+      }
+    }
+
     @include sm {
       flex-direction: column;
-      border: none;
+       border: none;
+
+     
     }
 
     input {
+      
       border: none;
       padding: 0px 10px;
       width: 200px;
@@ -75,7 +87,7 @@
 
     a{
       flex: 1;
-      background-color: #51dbfe;
+      background-color: teal;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -83,8 +95,8 @@
       button {
         border: none;
         cursor: pointer;
-        background-color: #51dbfe;
-        
+        background-color: inherit;     
+           
         @include sm{
           padding: 10px;
         }

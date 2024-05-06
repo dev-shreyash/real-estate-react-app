@@ -1,3 +1,5 @@
+@import "../../responsive.scss";
+
 .registerPage {
     height: 100%;
     display: flex;
@@ -56,6 +58,10 @@
       justify-content: center;
       img {
         width: 100%;
+      }
+
+      @include sm{
+        display: none;
       }
     }
   }

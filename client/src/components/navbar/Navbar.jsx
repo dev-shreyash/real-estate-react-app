@@ -27,7 +27,7 @@ function Navbar() {
         <a href="/">Agents</a>
       </div>
       <div className="right">
-        {currentUser ? (
+        {currentUser.data  ? (
           <div className="user">
             <Link to='/profile'>
             <img src={currentUser.data?.user?.avatar || "/noavatar.jpg"} alt="" />
@@ -58,8 +58,19 @@ function Navbar() {
           <a href="/">About</a>
           <a href="/">Contact</a>
           <a href="/">Agents</a>
-          <a href="/">Sign in</a>
-          <a href="/">Sign up</a>
+          {currentUser.data  ? (
+            <Link to="/profile" className="profile">
+              {number > 0 && <div className="notification">{number}</div>}
+              <span>Profile</span>
+            </Link>
+        ) : (
+          <>
+          <Link to="/login">Sign in</Link>
+          <Link to="/register" className="register">
+            Sign up
+          </Link>
+          </>
+        )}
         </div>
       </div>
     </nav>

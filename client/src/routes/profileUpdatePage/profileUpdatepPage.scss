@@ -1,12 +1,28 @@
+@import '../../responsive.scss';
+
 .profileUpdatePage {
     height: 100%;
     display: flex;
+
+    @include sm{
+      flex-direction: column;
+
+
+      .sideContainer{
+        order: -1;
+        margin-bottom: 2rem;
+        
+        
+      }
+      
+    }
   
     .formContainer {
       flex:3;
       display: flex;
       align-items: center;
       justify-content: center;
+      
       form {
         display: flex;
         flex-direction: column;
@@ -27,6 +43,7 @@
           }
         }
         button {
+        
           padding: 20px;
           border-radius: 5px;
           border: none;
@@ -34,13 +51,17 @@
           color: white;
           font-weight: bold;
           cursor: pointer;
+          
+
         }
       }
     }
   
     .sideContainer {
+      padding: 20px;
+      border-radius: 10px;
       flex: 2;
-      background-color: #fcf5f3;
+      background-color: #b3b4b4;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -50,6 +71,9 @@
       .avatar{
         width: 50%;
         object-fit: cover;
+      
+
+        border-radius: 50%;
       }
     }
   }

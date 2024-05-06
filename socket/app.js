@@ -24,17 +24,21 @@ const removeUser=(socketid)=>{
 }
 
 const getUser =(userId)=>{
+  //  console.log(userId)
     return onlineUser.find((user)=>user.userId===userId)
 }
 
 io.on("connection",(socket)=>{
    socket.on('newUser',(userId)=>{
     addUser(userId,socket.id)
-    console.log( onlineUser)
+   // console.log( onlineUser)
    })
 
    socket.on("sendMessage",({receiverId,data})=>{
+    console.log(receiverId)
     const receiver =getUser(receiverId)
+    console.log("reciever",receiver)
+
     io.to(receiver.socketId).emit("getMessage",data)
    })
    socket.on("disconnect",()=>{

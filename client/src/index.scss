@@ -1,24 +1,34 @@
+@import "./responsive.scss";
 
-*{
-
+* {
     scrollbar-width: none;
-  
     font-synthesis: none;
-   
     -webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
-  }
+        display: none; /* Hide scrollbar in Chrome, Safari, Opera */
+    }
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-  }
-  
-  a {
+}
+
+a {
     text-decoration: none;
     color: inherit;
-  }
-  
-  body{
+}
+
+html, body {
     font-family: "Lato", sans-serif;
-    overflow: hidden;
-  }
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+body {
+    position: relative; /* Ensure relative positioning */
+    min-height: 100vh; /* Ensure body covers the entire viewport height */
+}
+
+#root {
+    overflow-x: hidden; /* Hide any overflow from the root element */
+    min-height: 100vh; /* Ensure root element covers the entire viewport height */
+}

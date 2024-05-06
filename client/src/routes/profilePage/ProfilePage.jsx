@@ -32,8 +32,11 @@ function ProfilePage() {
     <div className="profilePage">
       <div className="details">
         <div className="wrapper">
-          <div className="title">
-            <h1>User Information</h1>
+          <div className="hello">
+            <div className="hello-user">
+            <p>Hello,</p>
+            <h1>{currentUser.data?.user?.username}</h1>
+            </div>
             <Link to="/profile/update">
               <button>Update Profile</button>
             </Link>

@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import './App.css'
 import {Layout, RequireAuth} from "./routes/layout/Layout";
  import Register from "./routes/register/Register";
  import Login from "./routes/login/Login";
