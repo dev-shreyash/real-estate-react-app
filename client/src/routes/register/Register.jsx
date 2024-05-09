@@ -49,7 +49,7 @@ function Register() {
         {error && <p className="error">{error}</p>}
       </div>
       <div className="imgContainer">
-        <img src="/bg.png" alt="" />
+        <img src="/bg.webp" alt="" />
       </div>
     </div>
   );

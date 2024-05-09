@@ -27,7 +27,7 @@ function Navbar() {
         <a href="/">Agents</a>
       </div>
       <div className="right">
-        {currentUser.data  ? (
+        {currentUser? (
           <div className="user">
             <Link to='/profile'>
             <img src={currentUser.data?.user?.avatar || "/noavatar.jpg"} alt="" />
@@ -58,7 +58,7 @@ function Navbar() {
           <a href="/">About</a>
           <a href="/">Contact</a>
           <a href="/">Agents</a>
-          {currentUser.data  ? (
+          {currentUser? (
             <Link to="/profile" className="profile">
               {number > 0 && <div className="notification">{number}</div>}
               <span>Profile</span>
