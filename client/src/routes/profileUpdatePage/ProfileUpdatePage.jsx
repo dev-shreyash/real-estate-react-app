@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
 import './profileUpdatepPage.scss'
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import UploadWidget from '../../components/uploadWidget/UploadWidget.jsx';
-import apiRequest from "../../lib/apiRequest";
+import apiRequest from "../../lib/apiRequest.js";
 
 function ProfileUpdatePage() {
     const { currentUser, updateUser } = useContext(AuthContext);

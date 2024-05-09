@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon api/app.js"
+    "dev": "node api/app.js"
   },
   "keywords": [],
   "author": "",

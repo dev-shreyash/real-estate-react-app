@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import apiRequest from './apiRequest'
+import apiRequest from './apiRequest.js'
 
 export const useNotificationStore = create((set) => ({
   number: 0,

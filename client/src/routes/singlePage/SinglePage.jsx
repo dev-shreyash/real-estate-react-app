@@ -1,11 +1,11 @@
-import Slider from '../../components/slider/Slider'
+import Slider from '../../components/slider/Slider.jsx'
 import './singlePage.scss'
-import Map from '../../components/map/Map';
+import Map from '../../components/map/Map.jsx';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import DOMpurify from 'dompurify'
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import apiRequest from '../../lib/apiRequest';
+import { AuthContext } from '../../context/AuthContext.jsx';
+import apiRequest from '../../lib/apiRequest.js';
 function SinglePage() {
     const post = useLoaderData()
     console.log(post)

@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import "./newPostPage.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import UploadWidget from "../../components/uploadWidget/UploadWidget";
+import UploadWidget from "../../components/uploadWidget/UploadWidget.jsx";
 import { useNavigate } from "react-router-dom";
-import apiRequest from "../../lib/apiRequest";
-import { AuthContext } from "../../context/AuthContext";
+import apiRequest from "../../lib/apiRequest.js";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 function NewPostPage() {
     const [value, setValue] = useState("");
