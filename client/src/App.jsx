@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './App.css'
-import {Layout, RequireAuth} from "./routes/layout/Layout";
  import Register from "./routes/register/Register.jsx";
  import Login from "./routes/login/Login.jsx";
 import HomePage from "./routes/homePage/HomePage.jsx";
@@ -10,6 +9,7 @@ import ProfilePage from "./routes/profilePage/ProfilePage.jsx";
 import ProfileUpdatePage from "./routes/profileUpdatePage/ProfileUpdatePage.jsx";
 import NewPostPage from "./routes/newPostPage/NewPostPage.jsx";
 import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loader.js";
+import { Layout, RequireAuth } from "./routes/layout/Layout.jsx";
 
 function App
 () {
