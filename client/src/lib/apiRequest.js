@@ -1,6 +1,6 @@
 import axios from "axios"
 const apiRequest=axios.create({
-    baseURL:"http://localhost:5000/api",
+    baseURL:"https://real-estate-react-app-2k8j.onrender.com/api",
     withCredentials:true
 })
 
