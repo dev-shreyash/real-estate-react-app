@@ -9,7 +9,7 @@ import ProfilePage from "./routes/profilePage/ProfilePage.jsx";
 import ProfileUpdatePage from "./routes/profileUpdatePage/ProfileUpdatePage.jsx";
 import NewPostPage from "./routes/newPostPage/NewPostPage.jsx";
 import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loader.js";
-import { Layout, RequireAuth } from "./routes/layout/Layout.jsx";
+import { Layout, RequireAuth } from "./routes/Layout/Layout.jsx";
 
 function App
 () {
