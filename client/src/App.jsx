@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './App.css'
- import Register from "./routes/register/Register.jsx";
- import Login from "./routes/login/Login.jsx";
-import HomePage from "./routes/homePage/HomePage.jsx";
+import Register from "./routes/register/Register.jsx";
+import Login from "./routes/login/Login.jsx";
+import HomePage from './routes/homePage/homePage.jsx'
 import ListPage from "./routes/listPage/ListPage.jsx";
 import SinglePage from "./routes/singlePage/SinglePage.jsx";
 import ProfilePage from "./routes/profilePage/ProfilePage.jsx";
