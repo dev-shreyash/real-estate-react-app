@@ -9,9 +9,9 @@ import apiRequest from '../../lib/apiRequest.js';
 function SinglePage() {
     const post = useLoaderData()
     console.log(post)
-    console.log(post.isSaved)
+   // console.log(post.isSaved)
     let saveValue = post.isSaved
-    console.log(saveValue)
+   // console.log(saveValue)
 //console.log(post.data.data.isSaved);
 
      const [saved, setSaved] = useState(post.isSaved);
@@ -19,7 +19,7 @@ function SinglePage() {
     const { currentUser } = useContext(AuthContext)
     const navigate = useNavigate()
     // console.log(post.data.post)
-    console.log(post.data.post.id)
+   // console.log(post.data.post.id)
     //console.log("desc:"+post.data.post.postDetail.desc)
     const handleSave = async () => {
         //setSaved((prev) => !prev)
@@ -44,6 +44,14 @@ function SinglePage() {
 
         }
 
+    }
+  
+    const handleSendmessage =async()=>{
+        const receiverId = post.data.post.userId
+
+        await apiRequest.post('/chats/',{receiverId})
+        navigate('/profile')
+        
     }
     return (
         <div className='singlePage'>
@@ -156,7 +164,7 @@ function SinglePage() {
                         <Map items={[post.data.post]} />
                     </div>
                     <div className="buttons">
-                        <button>
+                        <button onClick={handleSendmessage}>
                             <img src="/chat.png" alt="" />
                             send a Message
                         </button>

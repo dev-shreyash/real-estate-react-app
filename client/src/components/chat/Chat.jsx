@@ -22,6 +22,7 @@ function Chat({ chats }) {
     },[chat])
 
     useEffect(() => {
+
         console.log("Updated chat state:", chat);
     }, [chat]);
 
@@ -32,10 +33,11 @@ function Chat({ chats }) {
             if(!res.data.data.seenBy.includes(currentUser.data.user.id)){
                 decrease()
             }
-            console.log("Chat data received from API:", res.data);
-            if (res.data) {
-                setChat({ ...res.data, receiver });
+            console.log("Chat data received from API:", res.data.data);
+            if (res.data.data) {
+                setChat({ ...res.data.data, receiver });
                 console.log("Setting chat state...");
+                console.log(chat)
             } else {
                 console.log("API returned no data or null");
             }
@@ -49,17 +51,15 @@ function Chat({ chats }) {
         try {
             const text = formData.get("text")
             if (!text) return
-            const res = await apiRequest.post("/messages/" + chat.data.id, { text })
+            const res = await apiRequest.post("/messages/" + chat.id, { text })
             
             if (res.data) {
                 
-                setChat(prev => ({
-                    ...prev,
-                    data: {
-                        ...prev.data,
-                        messages: [...prev.data.messages, res.data]
-                    }
-                }));
+                setChat((prev) => {
+                    prev.messages.push(res.data.message)
+                    return { ...prev }
+                })
+                
             }
             socket.emit('sendMessage',{
                 receiverId:chat.receiver.id,
@@ -98,9 +98,12 @@ function Chat({ chats }) {
         }
         if (chat && socket) {
             socket.on("getMessage", (data) => {
-              if (chat.data.id === data.chatId) {
-                setChat((prev) => ({ ...prev, messages: [...prev.messages, data] }));
-                read();
+              if (chat.id === data.message.chatId) {
+                setChat((prev) => {
+                    prev.messages.push(data.message)
+                    return { ...prev }
+                })                
+                read()
               }
             });
           }
@@ -141,16 +144,17 @@ function Chat({ chats }) {
                         <span className="close" onClick={() => setChat(null)}>X</span>
                     </div>
                     <div className="center">
-                        {chat.data.messages.map((message) => (
+                        {chat.messages.map((message) => (
                             <div className="chatMessage"
+                            key={message.id}
                                 style={{
                                     alignSelf: message.userId === currentUser.data.user.id ? "flex-end" : "flex-start",
                                     textAlign: message.userId === currentUser.data.user.id ? "right" : "left",
                                     backgroundColor: message.userId === currentUser.data.user.id ? "#5452" : "#5eddd26b",
                                     borderRadius:message.userId === currentUser.data.user.id ? "20px 20px 2px 20px" : "2px 20px 20px 20px"
                                 }}
-                                key={message.id}>
-                                <p>{message.text}</p>
+                                >
+                                <p>{message?.text}</p>
                                 <span>{format(new Date(message.createdAt))}</span>
                             </div>
                         ))}

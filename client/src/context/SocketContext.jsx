@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { io } from 'socket.io-client';
-import { AuthContext } from './AuthContext.jsx';
 
-export const SocketContext = React.createContext();
+import { createContext, useContext, useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { AuthContext } from "./AuthContext";
+
+export const SocketContext = createContext();
 
 export const SocketContextProvider = ({ children }) => {
-  const { currentUser } = React.useContext(AuthContext);
-  const [socket, setSocket] = React.useState(null);
+  const { currentUser } = useContext(AuthContext);
+  const [socket, setSocket] = useState(null);
 
-  React.useEffect(() => {
-    setSocket(io('http://localhost:4000'));
+  useEffect(() => {
+    setSocket(io("http://localhost:4000"));
   }, []);
 
-  React.useEffect(() => {
-    currentUser && socket?.emit('newUser', currentUser.data?.user?.id);
+  useEffect(() => {
+  currentUser && socket?.emit("newUser", currentUser.data?.user?.id);
   }, [currentUser, socket]);
 
   return (
@@ -22,9 +22,4 @@ export const SocketContextProvider = ({ children }) => {
       {children}
     </SocketContext.Provider>
   );
-};
-
-// Prop types validation
-SocketContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 };
