@@ -106,6 +106,8 @@ export const login=asyncHandler(async(req,res)=>{
                 expiresIn:cookieAge
             });
 
+            console.log('token: ', token)
+
         res.cookie("token",token,{
             httpOnly:true,
             secure:true,
