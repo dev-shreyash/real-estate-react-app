@@ -111,8 +111,12 @@ export const login=asyncHandler(async(req,res)=>{
         res.cookie("token",token,{
             httpOnly:true,
             secure:true,
-            maxAge:cookieAge
+            maxAge:cookieAge,
+            sameSite:'None'
         })
+
+        console.log("Cookie set:", res.getHeaders()['set-cookie']);
+
 
         const {password:userPassword, ...userInfo}=user
 
