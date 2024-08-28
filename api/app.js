@@ -24,6 +24,10 @@ app.use(cookieParser())
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+    res.send('products api running new deploy');
+});
+
 app.use('/api/auth',authRoute)
 app.use('/api/users',userRoute)
 app.use('/api/posts',postRoute)
