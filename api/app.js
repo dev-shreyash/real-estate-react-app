@@ -20,6 +20,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 app.use(cors({origin: process.env.CLIENT_URL, credentials:true}))
+console.log(process.env.CLIENT_URL,"Client url")
 app.use(cookieParser())
 
 app.use(express.json())
