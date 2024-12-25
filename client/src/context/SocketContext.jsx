@@ -10,7 +10,7 @@ export const SocketContextProvider = ({ children }) => {
 
   // Initialize the socket connection
   useEffect(() => {
-    const newSocket = io("http://127.0.0.1:4000", {
+    const newSocket = io("https://real-estate-react-app-socket.onrender.com", {
       withCredentials: true, // Ensure CORS compatibility if required
     });
     setSocket(newSocket);

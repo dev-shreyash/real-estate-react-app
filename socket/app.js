@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 const server = http.createServer();
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // Your client URL
+    origin: "https://real-estate-react-app-shreyash.netlify.app", // Your client URL
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -75,7 +75,7 @@ server.on('request', (req, res) => {
 // Periodically send a "ping" to the API server to keep it alive
 setInterval(async () => {
   try {
-    const response = await fetch('http://localhost:5000/health'); // Request to the API server's health check
+    const response = await fetch('https://real-estate-react-app-knh7.onrender.com/health'); // Request to the API server's health check
     if (response.ok) {
       console.log('Socket server: API server health check successful');
     } else {
