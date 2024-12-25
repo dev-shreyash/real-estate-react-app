@@ -11,6 +11,7 @@
         flex-direction: column;
         gap: 20px;
         overflow-y: scroll;
+        
 
         .message {
             background-color: #fff;
@@ -35,7 +36,8 @@
 
     .chatBox {
       
-
+        border-top-right-radius: 5px;
+        border-top-right-radius: 5px;
         background-color: #ffffff;
         flex: 1;
         display: flex;
@@ -48,13 +50,13 @@
         .top {
             border-top-right-radius: 5px;
             border-top-right-radius: 5px;
-            background-color: #17bdaffa;
+            background-color: #0bb381;
             padding: 20px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 1px 9px rgba(0, 0, 0, 0.2);
 
 
 
@@ -63,6 +65,7 @@
                 align-items: center;
                 gap: 20px;
                 font-size: 20px;
+                color: #fff;
 
                 img {
                     width: 50px;

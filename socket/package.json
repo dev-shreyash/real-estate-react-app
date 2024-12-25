@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon socket/app.js",
-    "start":"node app.js"
-
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +15,9 @@
     "nodemon": "^3.1.0"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "node-fetch": "^3.3.2",
+    "socket": "file:",
     "socket.io": "^4.7.5"
   }
 }
